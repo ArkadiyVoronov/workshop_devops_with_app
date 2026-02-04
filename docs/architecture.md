@@ -75,20 +75,25 @@
 
 ## Методология: Chaos Engineering Cycle
 
-Каждый кейс проходит через стандартизированный цикл:
+## Стандартизированный цикл кейса
 
-```
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│  1. BASELINE │───▶│  2. INJECT  │───▶│  3. DETECT  │
-│  (Измерение) │    │  (Внесение) │    │(Обнаружение)│
-└─────────────┘    └─────────────┘    └──────┬──────┘
-       ▲                                      │
-       └──────────────────────────────────────┘
-┌─────────────┐    ┌─────────────┐             │
-│  5. RECOVER │◀───│  4. RESPOND │◀────────────┘
-│  (Уроки)    │    │  (Реакция)  │
-└─────────────┘    └─────────────┘
-```
+```mermaid
+flowchart LR
+    subgraph Цикл[" "]
+        direction LR
+        
+        A[1. BASELINE<br/>(Измерение)] --> B[2. INJECT<br/>(Внесение)]
+        B --> C[3. DETECT<br/>(Обнаружение)]
+        C --> D[4. RESPOND<br/>(Реакция)]
+        D --> E[5. RECOVER<br/>(Уроки)]
+        E --> A
+    end
+    
+    style A fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#000
+    style B fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#000
+    style C fill:#f3e5f5,stroke:#4a148c,stroke-width:2px,color:#000
+    style D fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px,color:#000
+    style E fill:#fce4ec,stroke:#880e4f,stroke-width:2px,color:#000
 
 ### Этапы цикла
 
