@@ -95,6 +95,8 @@ flowchart LR
     style D fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px,color:#000
     style E fill:#fce4ec,stroke:#880e4f,stroke-width:2px,color:#000
 
+```
+
 ### Этапы цикла
 
 | Этап | Действия | Ключевые вопросы |
