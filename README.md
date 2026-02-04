@@ -14,7 +14,7 @@ docker-compose up -d --build
 curl http://localhost:5000/health
 docker-compose ps
 
-Доступные сервисы
+# Доступные сервисы
 Table
 Copy
 Сервис	URL	Назначение
@@ -28,7 +28,7 @@ Grafana	http://localhost:3000	Визуализация (admin/workshop)
     docs/monitoring.md — Настройка observability
     docs/cases/ — Практические кейсы
 
-Кейсы
+# Кейсы
 
     Деградация latency — Пиковая нагрузка
     Исчерпание пула соединений — Утечка ресурсов БД
