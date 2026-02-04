@@ -2,16 +2,15 @@
 
 ## Компоненты
 
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   Grafana   │────▶│  Prometheus │◀────│     App     │
-│  (визуализация)   │  (метрики)  │     │   (Flask)   │
-└─────────────┘     └─────────────┘     └──────┬──────┘
+┌─────────────┐         ┌─────────────┐         ┌─────────────┐
+│   Grafana   │◀────────│  Prometheus │◀────────│     App     │
+│ (визуализация)         │  (метрики)  │         │   (Flask)   │
+└─────────────┘         └─────────────┘         └──────┬──────┘
 │
 ┌──────┴──────┐
 │  PostgreSQL │
 │    (БД)     │
 └─────────────┘
-Copy
 
 
 ## Endpoints API
@@ -32,7 +31,7 @@ Copy
 - `fintech_requests_total` — общее количество запросов (labels: method, endpoint, status)
 
 ### Histogram
-- `fintech_request_latency_seconds` — распределение latency (labels: endpoint)
+- `fintech_request_latency_seconds_bucket{endpoint="/api/balance", le="0.1"}` — 
 
 ### Gauge
 - `fintech_active_transactions` — текущие транзакции в обработке
@@ -43,9 +42,10 @@ Copy
 
 ```json
 {
-  "latency_ms": 0,        // Задержка ответа
-  "error_rate": 0,        // Процент ошибок (0-100)
-  "memory_leak_mb": 0,    // Утечка памяти на запрос
+  "latency_ms": 0,        // Задержка ответа в миллисекундах
+  "error_rate": 0,        // Вероятность ошибки 0-100%
+  "memory_leak_mb": 0,    // Утечка памяти на запрос (МБ)
   "db_slow": false,       // Медленные запросы к БД
   "db_fail": false        // Отказ соединения с БД
 }
+
