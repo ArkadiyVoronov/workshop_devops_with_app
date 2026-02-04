@@ -24,7 +24,7 @@ rate(fintech_requests_total[5m])
 # Active transactions
 fintech_active_transactions
 
-Grafana
+### Grafana
 Доступ
 
     URL: http://localhost:3000
