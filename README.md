@@ -46,16 +46,20 @@ docker-compose ps
 
 ## Структура воркшопа
 
-```
+```text
 workshop_devops_with_app/
 ├── docs/
-│   ├── workshop.md          # Описание воркшопа и цели
-│   ├── architecture.md      # Архитектура приложения
-│   ├── monitoring.md        # Настройка observability
-│   └── cases/               # Практические кейсы
-├── app/                     # Исходный код приложения
-├── docker-compose.yml       # Конфигурация инфраструктуры
-└── README.md                # Этот файл
+│   ├── cases/               # Практические кейсы по отказам
+│   ├── curl_guide.md        # Зачем и как мы используем curl
+│   ├── grafana-setup.md     # Настройка Grafana и дашбордов
+│   └── testing_philosophy.md# Зачем нам observability и хаос-инженерия
+├── config/
+│   ├── prometheus.yml       # Конфигурация Prometheus
+│   └── grafana/             # Провижининг datasources для Grafana
+├── app.py                    # Исходный код приложения (Flask API)
+├── docker-compose.yml        # Конфигурация инфраструктуры
+├── init.sql                  # Инициализация БД
+└── README.md                 # Этот файл
 ```
 
 ---
@@ -69,8 +73,8 @@ workshop_devops_with_app/
 | **Случайные ошибки** | Потерянные транзакции | Обработка ошибок, retry-логика, idempotency |
 | **Утечка памяти** | OOM kills контейнеров | Профилирование памяти, настройка лимитов |
 | **Каскадный отказ** | Circuit breaker pattern | Graceful degradation, bulkhead pattern |
+```
 
----
 
 ## Управление инфраструктурой
 
