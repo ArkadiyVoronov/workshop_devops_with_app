@@ -36,5 +36,8 @@ curl -X POST http://localhost:5000/api/failures \
 ```bash
 curl -X POST http://localhost:5000/api/reset
 ```
-Эти команды являются «входной точкой» для всех кейсов: после них мы открываем Prometheus/Grafana и смотрим, как изменились метрики.\
+Эти команды являются «входной точкой» для всех кейсов: после них мы открываем Prometheus/Grafana и смотрим, как изменились метрики.
+
+Больше контекста о том, зачем нам observability и хаос-инженерия — в [testing_philosophy.md](testing_philosophy.md).
+
 
