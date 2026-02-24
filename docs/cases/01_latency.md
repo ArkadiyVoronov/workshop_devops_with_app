@@ -1,6 +1,5 @@
 ## Как включить
 ```bash
-# Добавляем задержку 2000 мс
 curl -X POST http://localhost:5000/api/failures \
   -H "Content-Type: application/json" \
   -d '{"latency_ms": 2000}'
