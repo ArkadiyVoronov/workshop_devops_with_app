@@ -3,13 +3,15 @@
 > Интерактивный воркшоп по тестированию отказоустойчивости финтех-приложений с использованием Docker, Prometheus и Grafana.
 
 ## Содержание
-
-- [Быстрый старт](#быстрый-старт)
-- [Доступные сервисы](#доступные-сервисы)
-- [Структура воркшопа](#структура-воркшопа)
-- [Практические кейсы](#практические-кейсы)
-- [Управление инфраструктурой](#управление-инфраструктурой)
-
+- [Философия тестирования и роли](docs/testing_philosophy.md)
+- [Руководство по curl](docs/curl_guide.md)
+- [Настройка Grafana](docs/grafana-setup.md)
+- Практические кейсы:
+  - [Кейс 1: рост latency](docs/cases/01_latency.md)
+  - [Кейс 2: рост error rate](docs/cases/02_error_rate.md)
+  - [Кейс 3: медленная БД](docs/cases/03_db_slow.md)
+  - [Кейс 4: утечка памяти](docs/cases/04_memory_leak.md)
+  - [Кейс 5: комбинированный хаос-сценарий](docs/cases/05_chaos_mix.md)
 ---
 
 ## Быстрый старт
@@ -138,6 +140,22 @@ open http://localhost:9090/graph?g0.expr=up&g0.tab=1
 ```
 
 ---
+## Дополнительная документация
+
+- [Философия тестирования и роли](docs/testing_philosophy.md)
+- [Руководство по curl](docs/curl_guide.md)
+- [Настройка Grafana](docs/grafana-setup.md)
+- Практические кейсы:
+  - [Кейс 1: рост latency](docs/cases/01_latency.md)
+  - [Кейс 2: рост error rate](docs/cases/02_error_rate.md)
+  - [Кейс 3: медленная БД](docs/cases/03_db_slow.md)
+  - [Кейс 4: утечка памяти](docs/cases/04_memory_leak.md)
+  - [Кейс 5: комбинированный хаос-сценарий](docs/cases/05_chaos_mix.md)
+---
+
+
+
+
 
 ## Требования
 
