@@ -47,7 +47,9 @@ docker-compose ps
 | **Prometheus** | http://localhost:9090 | Сбор и хранение метрик | — |
 | **Grafana** | http://localhost:3000 | Визуализация метрик | `admin` / `workshop` |
 
+---
 
+![Схема приложения](/docs/screenshots/177322951275a1.png)
 ---
 
 ## Структура воркшопа
