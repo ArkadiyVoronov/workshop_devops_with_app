@@ -1,15 +1,27 @@
-## Включаем ошибочную нагрузку:
+# Кейс 2: Рост error rate
+
+## Цель
+Проанализировать влияние ошибок на доступность и обнаружить причину.
+
+## Baseline
+- Посмотреть `rate(fintech_requests_total{status=~"5.."}[5m])` и общий трафик.
+- Убедиться, что алерты не в firing.
+
+## Inject
 ```bash
-curl -X POST http://localhost:5000/api/failures \
-  -H "Content-Type: application/json" \
-  -d '{"error_rate": 30}'
-# 30% запросов будут падать
+bash scripts/run_error_rate.sh
 ```
 
-## Генерация запросов:
-```bash
-while true; do
-  curl -s -o /dev/null -w "%{http_code}\n" http://localhost:5000/api/balance
-  sleep 0.1
-done
-```
+## Как наблюдаем
+- `rate(fintech_requests_total{status=~"5.."}[5m]) / rate(fintech_requests_total[5m])`
+- `ALERTS{alertname="HighErrorRate"}`
+
+## Реакция
+1. Проверить логи приложения `docker compose logs app --tail 50`.
+2. Обсудить пути смягчения (retry, fallback, throttling).
+3. Сброс `/api/reset`.
+
+## Постмортем
+- Какие зависимости (DB, external) могли вызвать ошибочный ответ?
+- Что меняем в продакшене, чтобы уменьшить 5xx?
+

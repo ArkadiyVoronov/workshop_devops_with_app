@@ -1,12 +1,24 @@
-## Включаем медленную БД:
+# Кейс 3: Медленная БД
+
+## Цель
+Понять, как отклонения в БД отражаются в метриках и как находить узкие места.
+
+## Baseline
+- `fintech_active_transactions`
+- Время ответа API
+
+## Inject
 ```bash
-curl -X POST http://localhost:5000/api/failures \
-  -H "Content-Type: application/json" \
-  -d '{"db_slow": true}'
+bash scripts/run_db_slow.sh
 ```
-## Нагрузка
-```bash
-while true; do
-  curl -s -o /dev/null http://localhost:5000/api/balance
-done
-```
+
+## Как наблюдаем
+- `fintech_active_transactions`
+- RPS и latency
+- `ALERTS{alertname="DBSlowTransactions"}`
+
+## Реакция
+1. Остановить инъекцию через `/api/reset`.
+2. Проверить, уменьшилось ли количество активных транзакций.
+3. Обсудить меры: индексирование, пул соединений, кэш.
+

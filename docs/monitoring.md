@@ -34,12 +34,18 @@ histogram_quantile(
 )
 
 # Error rate (доля 5xx)
-rate(fintech_requests_total{status="500"}[5m])
-/
-rate(fintech_requests_total[5m])
+rate(fintech_requests_total{status="500"}[5m]) / rate(fintech_requests_total[5m])
 
 # Active transactions
 fintech_active_transactions
+```
+
+### Запись правил (recording rules)
+
+```promql
+job:fintech_request_rate:1m
+job:fintech_p95_latency:5m
+job:fintech_error_rate:5m
 ```
 
 Эти метрики определены в `app.py`:
@@ -47,6 +53,28 @@ fintech_active_transactions
 - `fintech_requests_total` — счётчик с лейблами `method`, `endpoint`, `status`.
 - `fintech_request_latency_seconds` — гистограмма с лейблом `endpoint`.
 - `fintech_active_transactions` — gauge активных транзакций.
+
+---
+
+## Алертинг в Prometheus
+
+В этой версии настроены правила алертов (в `config/prometheus.rules.yml`):
+
+- `HighLatency` — p95 > 2s
+- `HighErrorRate` — доля 5xx > 10%
+- `DBSlowTransactions` — активных транзакций > 10
+- `MemoryPressure` — использование памяти > 450 MB
+
+### Проверка алертов
+
+- В Prometheus: `http://localhost:9090/alerts`
+- Метрика для алертов: `ALERTS{alertname="HighLatency"}`
+
+### Как использовать
+
+1. Запустить кейс (инъекция отказа).
+2. Открыть `http://localhost:9090/alerts`, увидеть статус `firing`.
+3. В Grafana добавить панель на основе `ALERTS` или `ALERTS_FOR_STATE`.
 
 ---
 

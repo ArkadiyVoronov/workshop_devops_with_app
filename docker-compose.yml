@@ -40,6 +40,7 @@ services:
     image: prom/prometheus:v2.47.0
     volumes:
       - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./config/prometheus.rules.yml:/etc/prometheus/prometheus.rules.yml:ro
       - prometheus_data:/prometheus
     ports:
       - "9090:9090"

@@ -15,25 +15,56 @@
 
 ---
 
-## Быстрый старт
+## Быстрый старт (Codespaces / локально)
 
-### 1. Клонирование и запуск
-
+### 1. Запуск окружения
 ```bash
 git clone <repo>
 cd workshop_devops_with_app
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
-### 2. Проверка работоспособности
+### 2. Быстрый кейс в отдельном терминале
+```bash
+bash scripts/run_latency.sh
+```
+
+### 3. Сброс
+```bash
+bash scripts/reset.sh
+```
+
+### 4. Полное описание
+- Тренерское руководство: `docs/coach-guide.md`
+- Скрипты: `docs/scripts.md`
+- Кейсы: `docs/cases/*.md`
+
+### 5. Проверка ресурсов
+- cAdvisor: `http://localhost:8080/`
+- Хост: `top`, `htop`, `vmstat` (если нужно подтвердить нагрузку железа)
+
+### 3. Краткий runbook (для тренера)
 
 ```bash
-# Проверка API
+# 1) Проверка базовых сервисов
 curl http://localhost:5000/health
+curl -I http://localhost:9090
+curl -I http://localhost:3000
 
-# Проверка статуса контейнеров
-docker-compose ps
+# 2) Проверка метрик (Prometheus)
+curl -s http://localhost:9090/api/v1/query?query=rate(fintech_requests_total[1m])
+
+# 3) Проверка алертов
+curl -s http://localhost:9090/api/v1/alerts
+
+# 4) Быстрый reset после кейса
+curl -X POST http://localhost:5000/api/reset
+
+# 5) Логи
+docker compose logs app --tail 80
 ```
+
+> Для Docker Compose v2 используйте `docker compose`, для v1 — `docker-compose`.
 
 
 ---
@@ -175,6 +206,7 @@ open http://localhost:9090/graph?g0.expr=up&g0.tab=1
 - [Кейс 3: медленная БД](docs/cases/03_db_slow.md)
 - [Кейс 4: утечка памяти](docs/cases/04_memory_leak.md)
 - [Кейс 5: комбинированный хаос-сценарий](docs/cases/05_chaos_mix.md)
+- [Гайд для тренера](docs/coach-guide.md)
 
 > Примечание: часть переменных в `.env.example` зарезервирована под дополнительные сценарии (frontend-ошибки, security и т.д.).
 > В текущей версии воркшопа они не используются напрямую в `app.py` и приведены для будущих расширений.

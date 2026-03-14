@@ -1,13 +1,28 @@
-## Включаем утечку:
+# Кейс 4: Утечка памяти
+
+## Цель
+Проверить, как накапливающиеся ресурсы влияют на стабильность контейнера и что вызывает рестарты.
+
+## Baseline
+- Просмотреть `container_memory_usage_bytes` для контейнера app.
+
+## Inject
 ```bash
-curl -X POST http://localhost:5000/api/failures \
-  -H "Content-Type: application/json" \
-  -d '{"memory_leak_mb": 5}'
-# +5 МБ на каждый запрос
+bash scripts/run_memory_leak.sh
 ```
+
 ## Нагрузка
 ```bash
-while true; do
-  curl -s -o /dev/null http://localhost:5000/api/balance
-done
+# Нагрузка генерируется внутри скрипта
 ```
+
+## Как наблюдаем
+- `container_memory_usage_bytes{container="workshop_devops_with_app-app-1"}`
+- `container_restart_count`
+- `ALERTS{alertname="MemoryPressure"}`
+
+## Реакция
+1. Сброс состояния `/api/reset`.
+2. Перезапустить контейнер (если требуется).
+3. Обсудить лимиты памяти, OOM-kill и мониторинг.
+
