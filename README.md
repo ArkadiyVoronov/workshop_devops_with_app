@@ -24,7 +24,17 @@ git clone <repo>
 cd workshop_devops_with_app
 docker-compose up -d --build
 ```
+## 🔧 Решение проблем
 
+| Проблема | Решение |
+|----------|---------|
+| `app` не запускается | `docker compose logs app` |
+| БД не подключается | Подождать 30 сек, проверить `docker compose ps db` |
+| Grafana нет метрик | Проверить datasource: Configuration → Data sources |
+| Порт 5000 занят | `lsof -i :5000` или изменить в docker-compose.yml |
+| Памяти мало | Увеличить лимит в Docker Desktop → Resources |
+| curl не найден | `apt install curl` / `brew install curl` |
+| Контейнер restart | `docker compose logs app --tail 100` |
 
 ### 2. Проверка работоспособности
 
