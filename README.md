@@ -64,8 +64,6 @@ curl -X POST http://localhost:5000/api/reset
 docker compose logs app --tail 80
 ```
 
-> Для Docker Compose v2 используйте `docker compose`, для v1 — `docker-compose`.
-
 
 ---
 
@@ -234,5 +232,3 @@ open http://localhost:9090/graph?g0.expr=up&g0.tab=1
 ## Лицензия
 
 MIT
-
-```
